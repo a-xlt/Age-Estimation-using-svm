@@ -80,4 +80,4 @@ def mainFunction(path):
     predictions = best_svr.predict(X_test_scaled)
     predictions2 = best_svr.predict(X_test_scaled2)
 
-    return int(predictions), mean_absolute_error(predictions2,y_train)
+    return int(predictions), mean_absolute_error(y_test, predictions2)
