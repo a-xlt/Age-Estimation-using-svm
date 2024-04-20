@@ -45,7 +45,6 @@ def extract_features(images):
     hog_features = []
     lbp_features = []
     for image in images:
-
         hog_descriptor = cv2.HOGDescriptor(_winSize=(128, 128), _blockSize=(16, 16), _blockStride=(8, 8),
                                            _cellSize=(8, 8), _nbins=9)
         hog = hog_descriptor.compute(image).flatten()
@@ -71,6 +70,7 @@ def mainFunction(path):
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(testImageFeatures)
+    X_test_scaled2 = scaler.transform(X_test)
     param_grid = {'C': [0.1, 1, 10, 100], 'gamma': [0.001, 0.0001], 'kernel': ['rbf']}
     svr = SVR()
     grid_search = GridSearchCV(svr, param_grid, cv=5)
@@ -78,5 +78,6 @@ def mainFunction(path):
 
     best_svr = grid_search.best_estimator_
     predictions = best_svr.predict(X_test_scaled)
+    predictions2 = best_svr.predict(X_test_scaled2)
 
-    return int(predictions)
+    return int(predictions), mean_absolute_error(predictions2,y_train)

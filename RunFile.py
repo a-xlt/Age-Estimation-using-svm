@@ -7,7 +7,7 @@ def calc_range(n):
     return f"{lower_bound}-{upper_bound}"
 
 
-result = main.mainFunction('archive_2/FGNET/images/014A40.JPG')
-
+result, mae = main.mainFunction('archive_2/FGNET/images/014A40.JPG')
 
 print(f"Age estimation between {calc_range(result)} Years")
+print(f"Mean absolute Error is: {mae}")
